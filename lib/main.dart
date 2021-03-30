@@ -1,72 +1,85 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
-  const MyApp({
-    Key key,
-  }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
+
+  static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: BodyWidget(),
+    return const MaterialApp(
+      title: _title,
+      home: MyStatefulWidget(),
+    );
+  }
+}
+
+/// This is the stateful widget that the main application instantiates.
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Schedule',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Teams',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Skima'),
+        backgroundColor:Colors.purple.shade700,
+      ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today_outlined),
+            label: 'Schedule',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people_alt),
+            label: 'Teams',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.purple.shade700,
+        onTap: _onItemTapped,
       ),
     );
   }
 }
-
-// TODO: When you press the button, change the background color of the app
-class BodyWidget extends StatelessWidget {
-  //String fruit = 'Apples';
-  final colorNotfier = ValueNotifier<Color>(Colors.purple.shade700);
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<Color>(
-      valueListenable: colorNotfier,
-      builder: (context, color, child) {
-        return Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: color,
-          child: Center(
-            child: Column(
-              children: [
-                SizedBox(height: 100),
-                Text('Hello'),
-                SizedBox(height: 100),
-                ElevatedButton(
-                  onPressed: () {
-                    print('I was clicked.');
-                    final randomNumber = Random().nextInt(7);
-                    final myNewColor = colorList[randomNumber];
-
-                    colorNotfier.value = myNewColor;
-                  },
-                  child: Text('Click me'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-
-final colorList = <Color>[
-  Colors.purple,
-  Colors.white,
-  Colors.orange,
-  Colors.blue,
-  Colors.red,
-  Colors.pink,
-  Colors.lightGreenAccent,
-];
-
