@@ -1,156 +1,105 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:transformer_page_view/transformer_page_view.dart';
 
-class HomePage extends StatelessWidget {
+import '../models/players_info.dart';
+import '../widgets/buildin_transform.dart';
+import '../widgets/single_players.dart';
+import '../widgets/slider_dot.dart';
+
+class HomePage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    return Stack(
-      children: [
-        Positioned(
-          bottom: height /70,
-          child: Image.network(
-            'https://images.squarespace-cdn.com/content/v1/56943972df40f384188df846/1598296611455-6UGGJ3K07JD6CRZA3DNS/ke17ZwdGBToddI8pDm48kNPKVmbt05aEWnErXou3fDl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0tb-hnCqoepq4X8c1traqO_6-8vaS3UGENu9QP5pfFlLbyLeIY6QzmBTG9h7XCKkkQ/lebron_james_by_maggie_west_1.jpg?format=2500w',
-            height: height,
-            width: width,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Foreground()
-      ],
-    );
-  }
+  _HomePageState createState() => _HomePageState();
 }
 
-class Foreground extends StatelessWidget {
-  const Foreground({
-    Key key,
-  }) : super(key: key);
+class _HomePageState extends State<HomePage> {
+  int _currentPage = 0;
+  String bgImg;
+
+  _onPageChanged(int index) {
+    setState(() {
+      _currentPage = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    var inputBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-      borderRadius: BorderRadius.all(
-        Radius.circular(30.0),
-      ),
-    );
+
+    if(locationList[_currentPage].Position == 'SF') {
+      bgImg = 'assets/5.jpg';
+    }  if(locationList[_currentPage].Position == 'C') {
+      bgImg = 'assets/7.jpg';
+    }  if(locationList[_currentPage].Position == 'SG') {
+      bgImg = 'assets/3.jpeg';
+    }  if(locationList[_currentPage].Position == 'F/C') {
+      bgImg = 'assets/6.jpg';
+    }
+
     return Scaffold(
-      backgroundColor: Colors.black26,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        elevation: 0,
+        title: Text(''),
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.white),
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu),
           onPressed: () {},
+          icon: Icon(
+            Icons.search,
+            size: 30,
+            color: Colors.white,
+          ),
         ),
         actions: [
-          IconButton(
-            icon: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.6435-9/116873907_1650015401824052_3431434889563061910_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=174925&_nc_ohc=JpPiF5s-2zkAX9hju8N&_nc_ht=scontent.fuln1-1.fna&oh=c69407a401f56ab1d8b9f02b28c5bd41&oe=6097DF34',
-                ),
-                backgroundColor: Colors.black12
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+            child: GestureDetector(
+              onTap: () => print('Menu Clicked!'),
+              child: SvgPicture.asset(
+                'assets/menu.svg',
+                height: 30,
+                width: 30,
+                color: Colors.white,
+              ),
             ),
-            onPressed: () {},
-          )
+          ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18),
-        child: DefaultTextStyle(
-          style: GoogleFonts.raleway(color: Colors.white),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 50),
-              Text(
-                'Hello Guys!',
-                style: TextStyle(fontSize: 30),
-              ),
-              SizedBox(height: 5),
-              Text(
-                'Check the players informations',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              SizedBox(height: 35),
-              TextField(
-                decoration: InputDecoration(
-                  border: inputBorder,
-                  enabledBorder: inputBorder,
-                  focusedBorder: inputBorder,
-                  hintText: 'Search players',
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  suffixIcon: Icon(Icons.search, color: Colors.white),
-                ),
-              ),
-              SizedBox(height: 150),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text(
-                  'Players',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ]),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Container(
+        child: Stack(
+          children: [
+            Image.asset(
+              bgImg,
+              fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
+            ),
+            Container(
+              decoration: BoxDecoration(color: Colors.black38),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 140, left: 15),
+              child: Row(
                 children: [
-                  for (var location in locations)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                              Colors.black12,
-                              BlendMode.darken,
-                            ),
-                            child: Image.network(
-                              location.imageUrl,
-                              height: height * 0.35,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                  for(int i = 0; i<locationList.length; i++)
+                    if( i == _currentPage )
+                      SliderDot(true)
+                    else
+                      SliderDot(false)
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+            TransformerPageView(
+              scrollDirection: Axis.horizontal,
+              transformer: ScaleAndFadeTransformer(),
+              viewportFraction: 0.8,
+              onPageChanged: _onPageChanged,
+              itemCount: locationList.length,
+              itemBuilder: (ctx, i) => SingleWeather(i),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class Location {
-  final String imageUrl;
-
-  Location({
-    this.imageUrl,
-  });
-}
-
-final locations = [
-  Location(
-    imageUrl: 'https://mcdn.wallpapersafari.com/medium/43/44/dPtber.jpg',
-  ),
-  Location(
-    imageUrl: 'https://cdn.wallpapersafari.com/85/92/FIrOk1.png',
-  ),
-];
