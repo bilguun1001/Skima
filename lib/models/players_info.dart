@@ -33,7 +33,7 @@ final locationList = [
  SportsApp(
     Player: 'Andre Drummond',
     Team: 'Los Angeles Lakers',
-    Number: '#0',
+    Number: '#2',
     Position: 'C',
     Pts: 10,
     Ast: 2,
