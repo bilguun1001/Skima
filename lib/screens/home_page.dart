@@ -37,33 +37,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text(''),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.search,
-            size: 30,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
-            child: GestureDetector(
-              onTap: () => print('Menu Clicked!'),
-              child: SvgPicture.asset(
-                'assets/menu.svg',
-                height: 30,
-                width: 30,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: Container(
         child: Stack(
           children: [
