@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skima/screens/home_page.dart';
 import 'package:skima/screens/splash_screen.dart';
 
 void main() => runApp(MyApp());
