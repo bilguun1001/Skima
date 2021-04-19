@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
 import '../models/players_info.dart';
