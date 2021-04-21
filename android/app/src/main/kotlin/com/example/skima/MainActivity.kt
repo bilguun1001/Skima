@@ -1,4 +1,4 @@
-package com.example.skima
+package com.bilguun.skima
 
 import io.flutter.embedding.android.FlutterActivity
 
