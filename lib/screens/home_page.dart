@@ -32,6 +32,18 @@ class _HomePageState extends State<HomePage> {
       bgImg = 'assets/3.jpeg';
     }  if(locationList[_currentPage].Position == 'F/C') {
       bgImg = 'assets/6.jpg';
+    }  if(locationList[_currentPage].Position == 'PG') {
+      bgImg = 'assets/8.jpg';
+    }  if(locationList[_currentPage].Position == 'Q') {
+      bgImg = 'assets/9.jpg';
+    }  if(locationList[_currentPage].Position == 'W') {
+      bgImg = 'assets/10.jpg';
+    }  if(locationList[_currentPage].Position == 'E') {
+      bgImg = 'assets/11.jpg';
+    }  if(locationList[_currentPage].Position == 'R') {
+      bgImg = 'assets/12.jpg';
+    }  if(locationList[_currentPage].Position == 'T') {
+      bgImg = 'assets/13.jpg';
     }
 
     return Scaffold(
